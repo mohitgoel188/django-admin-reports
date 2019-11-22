@@ -75,12 +75,12 @@
                     <li>
                       <p class="errorlist" style="color:red">
                       {% for error in field.errors %}
-                        {{ error }}
+                        {{ error | safe}}
                       {% endfor %}
                       </p>
                       {{ field }}
                       {% if field.help_text %}
-                      <p class="help">{{ field.help_text|safe }}</p>
+                      <p class="help">{{ field.help_text | safe }}</p>
                       {% endif %}
                     </li>
                   </ul>
