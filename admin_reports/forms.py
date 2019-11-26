@@ -1,7 +1,7 @@
 import csv
 from django import forms
 
-delimiters = ";,|:"
+delimiters = ",;|:"
 quotes = "\"'`"
 escapechars = " \\"
 
