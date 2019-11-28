@@ -330,8 +330,8 @@ class Report(object):
     def has_permission(self, request):
         return request.user.is_active and request.user.is_staff
 
-    def get_additional_data_html(self):
-        ''' Implement here your additional data aggregation.
-            Must return a html code.
+    def extra_context(self):
+        ''' Pass any extra data through here.
+            Must return a dictionary.
         '''
-        return None
+        return {}

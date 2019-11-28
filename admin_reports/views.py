@@ -307,6 +307,7 @@ class ReportView(TemplateView, FormMixin):
             if form.is_valid():
                 self.report.set_params(**form.cleaned_data)
         rl = ReportList(self.request, self.report)
+        rl.get_result_count()
         kwargs.update({
             'rl': rl,
             'opts': Opts(self.report),
@@ -319,8 +320,8 @@ class ReportView(TemplateView, FormMixin):
             'totals_on_top': self.report.totals_on_top,
             'suit': (('suit' in settings.INSTALLED_APPS) or
                      ('bootstrap_admin' in settings.INSTALLED_APPS)),
-            'additional_data': self.report.get_additional_data_html(),
         })
+        kwargs.update(self.report.extra_context())
         return kwargs
 
     def get_template_names(self):

@@ -42,15 +42,6 @@
   </div>
 {% endblock %}
 
-{% block breadcrumbs %}
-  {{ block.super }}
-  {% if additional_data %}
-    <div id="cust_section_container" style="padding: 20px 40px;" >
-        {{ additional_data | safe }}
-    </div>
-  {% endif %}
-{% endblock %}
-
 {% block content %}
   <div id="content-main">
     {% block object-tools %}
