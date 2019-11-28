@@ -319,6 +319,7 @@ class ReportView(TemplateView, FormMixin):
             'totals_on_top': self.report.totals_on_top,
             'suit': (('suit' in settings.INSTALLED_APPS) or
                      ('bootstrap_admin' in settings.INSTALLED_APPS)),
+            'additional_data': self.report.get_additional_data_html(),
         })
         return kwargs
 
