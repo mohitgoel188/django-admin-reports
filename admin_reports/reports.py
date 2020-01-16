@@ -6,6 +6,7 @@ import six
 import csv
 import re
 from django.conf import settings
+
 try:
     from django.db.models.query import QuerySet, ValuesQuerySet
 except ImportError:
@@ -13,6 +14,7 @@ except ImportError:
     from django.db.models.query import QuerySet, ModelIterable
 from django.utils.safestring import mark_safe
 from django.core.paginator import Paginator
+
 try:
     pnd = True
     from pandas import DataFrame
@@ -33,7 +35,7 @@ class Report(object):
     description = ''
     help_text = ''
     template_name = 'admin/report.html'
-    paginator = Paginator # ReportPaginator
+    paginator = Paginator  # ReportPaginator
     list_per_page = 100
     list_max_show_all = 200
     alignment = None
@@ -71,8 +73,8 @@ class Report(object):
                 self._totals = results.last().__dict__
             else:
                 length = len(results)
-                self._results = results[:length-1]
-                self._totals = results[length-1]
+                self._results = results[:length - 1]
+                self._totals = results[length - 1]
             self._evaluated_totals = True
         else:
             self._results = results
@@ -107,7 +109,7 @@ class Report(object):
         results = self.aggregate(**self._params)
         try:
             values = isinstance(results, ValuesQuerySet)
-        except NameError:       # django >= 1.9
+        except NameError:  # django >= 1.9
             values = results.__class__ is not ModelIterable
         if isinstance(results, QuerySet) and not values:
             self._data_type = 'qs'
@@ -216,9 +218,9 @@ class Report(object):
                 if not values:
                     values = self._is_value_qs(self._results.values())
                     self.fields = (
-                        values
-                        + self._results.query.annotations.keys()
-                        + self._results.query.extra.keys())
+                            values
+                            + self._results.query.annotations.keys()
+                            + self._results.query.extra.keys())
             else:
                 try:
                     self.fields = self.get_results()[0].keys()
@@ -328,6 +330,7 @@ class Report(object):
             writer.writerow(self.totals)
 
     def has_permission(self, request):
+        self.request = request
         return request.user.is_active and request.user.is_staff
 
     def extra_context(self):
